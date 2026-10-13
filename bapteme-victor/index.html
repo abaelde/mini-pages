@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Baptême de Victor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout : une colonne de lecture ; une frise verticale suit l'ordre de la cérémonie ; une couleur par personne. */
+:root {
+  --bg: #f6f7fa;
+  --surface: #ffffff;
+  --ink: #1a1f2c;
+  --muted: #5d6475;
+  --line: #d9dde6;
+  --aur: #2a4a98;
+  --aur-tint: #e6ecfa;
+  --flo: #a3345a;
+  --flo-tint: #fae7ee;
+  --cel: #8a5a00;
+  --cel-tint: #fbefd6;
+  --check: #7a4b00;
+  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-body: "Atkinson Hyperlegible", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-read: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12151c; --surface: #1a1e28; --ink: #e9ecf3; --muted: #a2a9b8; --line: #2e3442;
+    --aur: #94adf2; --aur-tint: #1f2a47; --flo: #f193b3; --flo-tint: #3c1f2b;
+    --cel: #e9b552; --cel-tint: #3a2c12; --check: #e9b552;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12151c; --surface: #1a1e28; --ink: #e9ecf3; --muted: #a2a9b8; --line: #2e3442;
+  --aur: #94adf2; --aur-tint: #1f2a47; --flo: #f193b3; --flo-tint: #3c1f2b;
+  --cel: #e9b552; --cel-tint: #3a2c12; --check: #e9b552;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.5;
+}
+.wrap { max-width: 44rem; margin: 0 auto; padding-inline: 16px; padding-block: 1.5rem 3rem; }
+
+header h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.3rem, 8vw, 3.2rem);
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+}
+header .date { color: var(--muted); margin: .35rem 0 0; font-size: 1.05rem; }
+header .intro { margin: 1rem 0 0; max-width: 36rem; }
+
+/* Personnes */
+.p-aur { --c: var(--aur); --t: var(--aur-tint); }
+.p-flo { --c: var(--flo); --t: var(--flo-tint); }
+.p-cel { --c: var(--cel); --t: var(--cel-tint); }
+.p-af  { --c: var(--ink); --t: var(--surface); }
+
+/* Filtre */
+.filter {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--bg);
+  margin-inline: -16px; padding: .7rem 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex; flex-wrap: wrap; gap: .5rem; align-items: center;
+}
+.filter span { color: var(--muted); font-size: .9rem; margin-right: .2rem; }
+.filter button {
+  font: inherit; font-size: .95rem; font-weight: 700;
+  border: 2px solid var(--c, var(--line));
+  color: var(--c, var(--ink));
+  background: var(--surface);
+  border-radius: 999px; padding: .3rem .85rem; cursor: pointer;
+}
+.filter button[aria-pressed="true"] { background: var(--c, var(--ink)); color: var(--bg); }
+.filter button:focus-visible { outline: 3px solid var(--c, var(--ink)); outline-offset: 2px; }
+
+/* Repère : ordre de la cérémonie */
+.order { margin-top: 1.5rem; }
+.order h2, .step h2 {
+  font-family: var(--font-display); font-weight: 600; margin: 0;
+  font-size: 1.65rem; line-height: 1.15; text-wrap: balance;
+}
+.order ol {
+  list-style: none; padding: 0; margin: .7rem 0 0;
+  display: flex; flex-wrap: wrap; gap: .4rem .3rem; align-items: center;
+}
+.order li { display: flex; align-items: center; gap: .3rem; }
+.order li + li::before { content: "→"; color: var(--muted); }
+.order a {
+  color: var(--ink); text-decoration: none;
+  border: 1px solid var(--line); background: var(--surface);
+  border-radius: .5rem; padding: .2rem .55rem; font-size: .95rem;
+}
+.order a:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.order a b { color: var(--c); }
+
+/* Frise */
+.timeline { margin-top: 2rem; display: grid; gap: 2.2rem; }
+.step { position: relative; padding-left: 1.6rem; border-left: 2px solid var(--line); }
+.step::before {
+  content: ""; position: absolute; left: -9px; top: .45rem;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--muted);
+}
+.step .where { color: var(--muted); font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 .2rem; }
+.step .nothing { color: var(--muted); margin: .4rem 0 0; }
+.step-body { display: grid; gap: 1.1rem; margin-top: .8rem; }
+
+.part { min-width: 0; }
+.who {
+  display: inline-flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .5rem;
+}
+.tag {
+  font-weight: 700; font-size: .9rem; letter-spacing: .03em;
+  color: var(--c); background: var(--t);
+  border: 1.5px solid var(--c);
+  border-radius: 999px; padding: .1rem .6rem;
+}
+.part .what { margin: 0 0 .6rem; }
+
+/* Texte à lire */
+.read {
+  font-family: var(--font-read);
+  font-size: 1.2rem; line-height: 1.6;
+  background: var(--surface);
+  border-left: 4px solid var(--c);
+  border-radius: 0 .6rem .6rem 0;
+  padding: .9rem 1rem;
+}
+.read p { margin: 0; }
+.read p + p { margin-top: .9rem; }
+.read .ref { font-family: var(--font-body); font-size: .9rem; color: var(--muted); margin-bottom: .6rem; }
+.refrain {
+  font-family: var(--font-read); font-weight: 600; font-size: 1.2rem; line-height: 1.45;
+  color: var(--c); background: var(--t);
+  border-radius: .6rem; padding: .7rem 1rem; margin: 0 0 .8rem;
+}
+.sung {
+  font-family: var(--font-body); font-size: .95rem; color: var(--muted);
+  font-style: italic; margin-top: .6rem !important;
+}
+.sung::before { content: "♪ "; font-style: normal; }
+.say { font-weight: 600; }
+
+/* Questions / réponses */
+.qa { display: grid; gap: .8rem; margin: 0; padding: 0; list-style: none; }
+.qa li { background: var(--surface); border-radius: .6rem; padding: .75rem 1rem; border: 1px solid var(--line); }
+.q { margin: 0; color: var(--muted); }
+.q b { color: var(--ink); font-weight: 700; }
+.a {
+  display: inline-block; margin-top: .45rem;
+  font-weight: 700; font-size: 1.35rem; line-height: 1.2;
+  color: var(--c); background: var(--t);
+  border: 2px solid var(--c);
+  border-radius: .5rem; padding: .15rem .65rem;
+}
+.a::before { content: "→ "; }
+
+.check {
+  background: var(--surface); border: 1px dashed var(--check);
+  border-radius: .6rem; padding: .7rem 1rem; margin: 0;
+}
+.check b { color: var(--check); }
+
+.verify { margin-top: 2.5rem; }
+.verify h2 { font-family: var(--font-display); font-weight: 600; font-size: 1.65rem; margin: 0 0 .6rem; }
+.verify ul { margin: 0; padding-left: 1.2rem; display: grid; gap: .5rem; }
+footer { margin-top: 2rem; color: var(--muted); font-size: .9rem; }
+
+/* Mode « ma partie » : on replie ce qui ne concerne pas la personne choisie */
+.dim { opacity: .45; }
+.dim .dim { opacity: 1; }
+.dim .read, .dim .qa, .dim .what, .dim .refrain { display: none; }
+@media (prefers-reduced-motion: no-preference) { .part, .step { transition: opacity .2s; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Baptême de Victor</h1>
+    <p class="date">Samedi 24 octobre 2026</p>
+    <p class="intro">Ce que disent et font <strong class="p-aur" style="color:var(--c)">Aurélien</strong>, <strong class="p-flo" style="color:var(--c)">Floriane</strong> et <strong class="p-cel" style="color:var(--c)">Célestine</strong>, dans l'ordre de la cérémonie. Les réponses à dire sont encadrées.</p>
+  </header>
+
+  <nav class="filter" aria-label="Afficher la partie de">
+    <span>Ma partie :</span>
+    <button type="button" id="f-all" data-f="all" aria-pressed="true">Tout</button>
+    <button type="button" id="f-aur" data-f="aur" class="p-aur" aria-pressed="false">Aurélien</button>
+    <button type="button" id="f-flo" data-f="flo" class="p-flo" aria-pressed="false">Floriane</button>
+    <button type="button" id="f-cel" data-f="cel" class="p-cel" aria-pressed="false">Célestine</button>
+  </nav>
+
+  <section class="order" aria-labelledby="order-h">
+    <h2 id="order-h">L'ordre de la cérémonie</h2>
+    <ol>
+      <li><a href="#accueil">Accueil <b class="p-aur">A</b> <b class="p-flo">F</b></a></li>
+      <li><a href="#lectures">Lectures <b class="p-cel">C</b> puis <b class="p-aur">A</b></a></li>
+      <li><a href="#evangile">Évangile, homélie</a></li>
+      <li><a href="#priere">Prière commune <b class="p-flo">F</b></a></li>
+      <li><a href="#litanie">Litanie</a></li>
+      <li><a href="#baptistere">Baptistère <b class="p-aur">A</b> <b class="p-flo">F</b> <b class="p-cel">C</b></a></li>
+      <li><a href="#autel">Autel</a></li>
+      <li><a href="#fin">Fin</a></li>
+    </ol>
+  </section>
+
+  <div class="timeline">
+
+    <!-- 1. Accueil -->
+    <section class="step" id="accueil" data-who="aur flo">
+      <p class="where">1 · À l'entrée de l'église</p>
+      <h2>Accueil : dialogue initial</h2>
+      <div class="step-body">
+        <div class="part" data-who="aur flo">
+          <div class="who"><span class="tag p-aur">Aurélien</span><span class="tag p-flo">Floriane</span></div>
+          <ul class="qa">
+            <li>
+              <p class="q">Le prêtre parle d'abord aux parents (le nom, le baptême). Ils répondent « Oui » à « Êtes-vous conscients de cela ? ». Ensuite, il se tourne vers vous :</p>
+            </li>
+            <li class="p-af">
+              <p class="q">« Et vous, qui avez accepté d'être parrain et marraine, vous devrez aider les parents à exercer leur responsabilité. <b>Êtes-vous disposés à le faire ?</b> »</p>
+              <span class="a">Oui</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Lectures -->
+    <section class="step" id="lectures" data-who="cel aur">
+      <p class="where">2 · Liturgie de la Parole</p>
+      <h2>Les lectures</h2>
+      <div class="step-body">
+
+        <div class="part p-cel" data-who="cel">
+          <div class="who"><span class="tag p-cel">Célestine</span></div>
+          <p class="what">Elle lit la première lecture.</p>
+          <div class="read">
+            <p class="ref">Lettre de saint Paul Apôtre aux Galates (3, 26-28)</p>
+            <p>Frères,<br>
+            tous, dans le Christ Jésus,<br>
+            vous êtes fils de Dieu par la foi.</p>
+            <p>En effet, vous tous que le baptême a unis au Christ,<br>
+            vous avez revêtu le Christ ;<br>
+            il n'y a plus ni juif ni grec,<br>
+            il n'y a plus ni esclave ni homme libre,<br>
+            il n'y a plus l'homme et la femme,<br>
+            car tous, vous ne faites plus qu'un<br>
+            dans le Christ Jésus.</p>
+            <p class="say">Parole du Seigneur.</p>
+          </div>
+        </div>
+
+        <div class="part p-aur" data-who="aur">
+          <div class="who"><span class="tag p-aur">Aurélien</span></div>
+          <p class="what">Juste après Célestine, il lit le psaume.</p>
+          <div class="read">
+            <p class="ref">Psaume 22</p>
+            <p class="refrain">R/ Le Seigneur est mon berger :<br>rien ne saurait me manquer.</p>
+            <p>Le Seigneur est mon berger :<br>
+            je ne manque de rien.<br>
+            Sur des prés d'herbe fraîche,<br>
+            il me fait reposer.</p>
+            <p>Il me mène vers les eaux tranquilles ;<br>
+            et me fait revivre ;<br>
+            il me conduit par le juste chemin<br>
+            pour l'honneur de son nom.</p>
+            <p>Si je traverse les ravins de la mort,<br>
+            je ne crains aucun mal,<br>
+            car tu es avec moi :<br>
+            ton bâton me guide et me rassure.</p>
+            <p>Tu prépares la table pour moi<br>
+            devant mes ennemis ;<br>
+            tu répands le parfum sur ma tête,<br>
+            ma coupe est débordante.</p>
+            <p>Grâce et bonheur m'accompagnent<br>
+            tous les jours de ma vie ;<br>
+            j'habiterai la maison du Seigneur<br>
+            pour la durée de mes jours.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. Évangile -->
+    <section class="step" id="evangile" data-who="">
+      <p class="where">3 · Liturgie de la Parole</p>
+      <h2>Alléluia, évangile, homélie</h2>
+      <p class="nothing">Le prêtre lit l'évangile selon saint Marc (10, 13-16) : « Laissez les enfants venir à moi ». Rien à faire.</p>
+    </section>
+
+    <!-- 4. Prière commune -->
+    <section class="step" id="priere" data-who="flo">
+      <p class="where">4 · Après l'homélie</p>
+      <h2>Prière commune</h2>
+      <div class="step-body">
+        <div class="part p-flo" data-who="flo">
+          <div class="who"><span class="tag p-flo">Floriane</span></div>
+          <p class="what">Elle lit quatre intentions. Après chacune, elle attend que l'assemblée chante le refrain.</p>
+          <div class="read">
+            <p class="refrain">♪ Ô Seigneur en ce jour, écoute nos prières</p>
+            <p>Seigneur,<br>
+            nous te présentons notre enfant Victor. Comme nous, tu l'aimes tendrement. Tu veux qu'il réussisse sa vie et qu'il soit heureux. Qu'il demeure un frère de ton Fils Jésus, le Christ. Accueille-le à tes côtés avec joie et amour en ce jour de baptême. Que la foi que nous lui transmettons puisse le guider et l'aider tout au long de sa vie.<br>
+            <span class="say">Ensemble nous te prions.</span></p>
+            <p class="sung">L'assemblée chante le refrain.</p>
+            <p>Seigneur,<br>
+            en te présentant Victor en vue de son baptême, nous prenons conscience de nos responsabilités. Pour que nous parents, avec l'assistance des parrains et marraines, nous puissions le guider dans la connaissance et dans l'amour de Dieu.<br>
+            <span class="say">Ensemble nous te prions.</span></p>
+            <p class="sung">L'assemblée chante le refrain.</p>
+            <p>Seigneur,<br>
+            pour la communauté paroissiale qui nous accueille aujourd'hui, afin qu'elle continue à témoigner de l'action de ton Esprit au milieu du monde aujourd'hui.<br>
+            <span class="say">Ensemble nous te prions.</span></p>
+            <p class="sung">L'assemblée chante le refrain.</p>
+            <p>Seigneur,<br>
+            viens en aide à tous les hommes, pour que s'apaisent leurs divisions, pour que progressent la paix, la justice, la fraternité et l'union entre les peuples.<br>
+            <span class="say">Ensemble nous te prions.</span></p>
+            <p class="sung">L'assemblée chante le refrain.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Litanie -->
+    <section class="step" id="litanie" data-who="">
+      <p class="where">5 · Avant le baptistère</p>
+      <h2>Litanie des saints</h2>
+      <p class="nothing">On y entend « Saint Aurélien et Saint Florian » et « Sainte Célestine ». Puis prière de délivrance et onction de l'huile. Rien à faire.</p>
+    </section>
+
+    <!-- 6. Baptistère -->
+    <section class="step" id="baptistere" data-who="aur flo cel">
+      <p class="where">6 · Au baptistère</p>
+      <h2>Renonciation, profession de foi, baptême</h2>
+      <div class="step-body">
+
+        <div class="part" data-who="aur flo">
+          <div class="who"><span class="tag p-aur">Aurélien</span><span class="tag p-flo">Floriane</span></div>
+          <p class="what">Après la bénédiction de l'eau et le chant « Tu es devenu enfant de Dieu ». Vous répondez avec les parents.</p>
+          <ul class="qa p-af">
+            <li><p class="q">« Pour vivre dans la liberté des enfants de Dieu, <b>rejetez-vous le péché ?</b> »</p><span class="a">Je le rejette.</span></li>
+            <li><p class="q">« Pour échapper à l'emprise du péché, <b>rejetez-vous ce qui conduit au mal ?</b> »</p><span class="a">Je le rejette.</span></li>
+            <li><p class="q">« Pour suivre Jésus, le Christ, <b>rejetez-vous Satan</b> qui est l'auteur du péché ? »</p><span class="a">Je le rejette.</span></li>
+            <li><p class="q">« <b>Croyez-vous en Dieu le Père</b> tout-puissant, créateur du ciel et de la terre ? »</p><span class="a">Je crois.</span></li>
+            <li><p class="q">« <b>Croyez-vous en Jésus Christ</b>, son Fils unique, notre Seigneur, qui est né de la Vierge Marie, a souffert la passion, a été enseveli, est ressuscité d'entre les morts, et qui est assis à la droite du Père ? »</p><span class="a">Je crois.</span></li>
+            <li><p class="q">« <b>Croyez-vous en l'Esprit Saint</b>, à la Sainte Église catholique, à la communion des saints, au pardon des péchés, à la résurrection de la chair, et à la Vie éternelle ? »</p><span class="a">Je crois.</span></li>
+          </ul>
+        </div>
+
+        <div class="part" data-who="aur cel">
+          <div class="who"><span class="tag p-cel">Célestine</span><span class="tag p-aur">Aurélien ?</span></div>
+          <p class="what">Après le baptême, l'onction et le vêtement blanc vient la <strong>remise du cierge allumé</strong>. Célestine rallume son cierge, avec Juliette et Alexandre.</p>
+          <p class="check"><b>À vérifier auprès de Sandrine :</b> le livret ne dit pas qui reçoit le cierge pour Victor. D'habitude, c'est le parrain.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. Autel -->
+    <section class="step" id="autel" data-who="">
+      <p class="where">7 · À l'autel</p>
+      <h2>Notre Père, envoi, bénédiction</h2>
+      <p class="nothing">Avec toute l'assemblée. Rien de particulier.</p>
+    </section>
+
+    <!-- 8. Fin -->
+    <section class="step" id="fin" data-who="aur flo">
+      <p class="where">8 · Fin</p>
+      <h2>Prières, registres, sortie</h2>
+      <div class="step-body">
+        <p class="nothing" style="margin:0">Prière des parents, Je vous salue Marie, signature des registres, quête, chant de sortie « Je veux chanter ton amour, Seigneur ».</p>
+        <div class="part" data-who="aur flo">
+          <div class="who"><span class="tag p-aur">Aurélien ?</span><span class="tag p-flo">Floriane ?</span></div>
+          <p class="check"><b>À vérifier auprès de Sandrine :</b> le livret ne dit pas qui signe les registres. D'habitude, le parrain et la marraine signent.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="verify" aria-labelledby="verify-h">
+    <h2 id="verify-h">À demander à Sandrine</h2>
+    <ul>
+      <li>Qui reçoit le cierge allumé pour Victor ?</li>
+      <li>Qui signe les registres ?</li>
+    </ul>
+  </section>
+
+  <footer>D'après le livret des intervenants envoyé par Sandrine le 12 octobre 2026. <a href="../" style="color:inherit">Toutes les pages</a></footer>
+</div>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.filter button');
+  var blocks = document.querySelectorAll('.step, .part');
+  function apply(f) {
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.f === f)); });
+    blocks.forEach(function (el) {
+      var who = (el.dataset.who || '').split(' ');
+      el.classList.toggle('dim', f !== 'all' && who.indexOf(f) === -1);
+    });
+    try { localStorage.setItem('bapteme-filter', f); } catch (e) {}
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.f); }); });
+  var map = { aurelien: 'aur', floriane: 'flo', celestine: 'cel' };
+  var start = map[location.hash.slice(1)];
+  if (!start) { try { start = localStorage.getItem('bapteme-filter'); } catch (e) {} }
+  if (start && document.getElementById('f-' + start)) apply(start);
+})();
+</script>
+</body>
+</html>
